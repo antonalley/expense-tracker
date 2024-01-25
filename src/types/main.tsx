@@ -14,3 +14,8 @@ export type UserData = {
     email: string,
     balance: number,
 }
+
+export type UserContextType = {
+    userData: UserData | null;
+    setUserData: (user: UserData | null) => void;
+  };

@@ -1,7 +1,10 @@
-import { useRef, useState } from "react"
+import React, { useContext, useRef, useState } from "react"
 import "../styles/Login.css"
 import axios from 'axios'
 import { UserData } from "../types/main";
+import Cookies from 'js-cookie';
+import { UserDataContext } from "../App";
+
 
 export default function Login(){
     const [isCreate, setIsCreate] = useState(false);
@@ -11,14 +14,24 @@ export default function Login(){
     const last = useRef<HTMLInputElement | null>(null);
     const email = useRef<HTMLInputElement | null>(null);
 
+    const {setUserData} = useContext(UserDataContext);
+
+    const api:string | undefined = import.meta.env.VITE_BACKEND_URL;
+
     function login(e: React.MouseEvent){
         if (username.current && password.current){
             let u = username.current.value;
             let p = password.current.value;
-            axios.post("/api/authenticate", {username:u, password:p})
+            axios.post(api + "/authenticate", {username:u, password:p})
             .then(response => {
                 if(response.status == 200 && response.data.status == "success"){
                     let userData: UserData = response.data["record"];
+                    let apiKey: string = response.data["apiKey"];
+                    setUserData(userData);
+                    // Save API KEY with expiration of 4 days
+                    Cookies.set("user-api-token", apiKey, {expires: 4}) 
+                    Cookies.set("uid", String(userData.userid), {expires: 4})
+                    window.location.href = "/dashboard"
                     // TODO: change context, and maybe localstorage
                 }
             })
