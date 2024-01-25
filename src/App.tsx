@@ -64,6 +64,7 @@ function App() {
   )
   } else {
     return (
+      <UserDataContext.Provider value={{userData, setUserData}}>
       <div id="App">
         <BrowserRouter>
             <Routes>
@@ -73,6 +74,7 @@ function App() {
             </Routes>
           </BrowserRouter>
       </div>
+      </UserDataContext.Provider>
     )
   }
     
