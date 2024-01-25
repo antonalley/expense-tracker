@@ -5,13 +5,21 @@ import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import History from './pages/History'
 import Navbar from './components/Navbar'
-import { createContext, useEffect, useState } from 'react'
+import { createContext, useEffect, useState, useContext } from 'react'
 import { UserData, UserContextType } from './types/main'
 import Cookies from 'js-cookie';
 import axios from 'axios'
 
 
-export const UserDataContext = createContext<UserContextType | undefined>(undefined);
+const UserDataContext = createContext<UserContextType | undefined>(undefined);
+
+export function useUserDataContext() {
+  const context = useContext(UserDataContext);
+  if (context === undefined) {
+    throw new Error('useUserContext must be used within a UserProvider');
+  }
+  return context;
+}
 
 function App() {
   const [userData, setUserData] = useState<UserData | null>(null);
@@ -35,6 +43,7 @@ function App() {
     
   }, [])
 
+  if (isAuth){
   return (
     <UserDataContext.Provider value={{userData, setUserData}}>
       <div id="App">
@@ -53,6 +62,19 @@ function App() {
       </div>
     </UserDataContext.Provider>
   )
+  } else {
+    return (
+      <div id="App">
+        <BrowserRouter>
+            <Routes>
+              <Route index element={<Navigate to="login/"/>} />
+              <Route path='home/' element={<Home />} />
+              <Route path='login/' element={<Login />} />
+            </Routes>
+          </BrowserRouter>
+      </div>
+    )
+  }
     
 }
 

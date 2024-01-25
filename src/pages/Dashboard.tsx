@@ -3,8 +3,8 @@ import { Category } from "../types/main";
 import "../styles/Dashboard.css"
 
 export default function Dashboard(){
-    const [balance, setBalance] = useState<number>(100.67);
-    const [categories, setCategories] = useState<Array<Category>>([
+    const [balance, _setBalance] = useState<number>(100.67);
+    const [categories, _setCategories] = useState<Array<Category>>([
         {
             "userid": 1,
             "name": "Savings",
