@@ -1,0 +1,85 @@
+#Dashboard{
+    height: 100%;
+    justify-content: top;
+}
+.balance {
+    padding: 1em;
+    font-size: 2em;
+}
+.account-actions {
+    width: 40vw;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1em;
+    margin-bottom: 2em;
+}
+
+.button {
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all ease-in-out 0.5s;
+    opacity: 1;
+    margin: 1em;
+    padding: 2em 4em;
+    width: 40%;
+    &:hover{
+        opacity: 0.5;
+    }
+}
+
+.expense {
+    background-color: var(--rally-orange);
+}
+
+.income {
+    background-color: var(--rally-green);
+}
+
+.categories-container {
+    max-width: 75%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 3em;
+    
+}
+
+.cat-detail {
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.10);
+    max-height: 18em;
+    max-width: 18em;
+    min-height: 18em;
+    min-width: 18em;
+    padding: 1em;
+    /* height: 100%; */
+}
+
+.cat-name {
+    font-size: 2em;
+    flex: 1;
+}
+
+.cat-amount {
+    font-size: 2.5em;
+    font-weight: bold;
+    flex: 1;
+}
+
+
+.cat-filter {
+    flex:1;
+}
+
+.cat-detail.add {
+    cursor: pointer;
+    justify-content: center;
+    font-weight: bold;
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.558);
+    }
+    
+}
+
+.cat-detail.add div {
+    font-size: 2em;
+}
