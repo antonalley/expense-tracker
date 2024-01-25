@@ -12,8 +12,8 @@ export default function Dashboard(){
     const [balance, _setBalance] = useState<number | undefined>(userData?.balance);
 
     const [categories, setCategories] = useState<Array<Category>>([]);
-    const [isPopupVisible, setIsPopupVisible] = useState(false); // State to manage the visibility of the popup
-    const [formData, setFormData] = useState({
+    const [_isPopupVisible, setIsPopupVisible] = useState(false); // State to manage the visibility of the popup
+    const [_formData, _setFormData] = useState({
         name: "",
         weight: "",
         balance: "",
@@ -29,28 +29,28 @@ export default function Dashboard(){
 
     
     // Function to handle form submission
-    function handleAddCategory(e: React.FormEvent) {
-        e.preventDefault();
-        // Process the form data and add it to your state/categories
-        // You can customize this part based on your requirements
+    // function _handleAddCategory(e: React.FormEvent) {
+    //     e.preventDefault();
+    //     // Process the form data and add it to your state/categories
+    //     // You can customize this part based on your requirements
 
-        // For example, add the new category to your state
-        const newCategory: Category = {
-            name: formData.name,
-            weight: parseFloat(formData.weight),
-            balance: parseFloat(formData.balance),
-            userid: userData?.userid || 0,
-        };
+    //     // For example, add the new category to your state
+    //     const newCategory: Category = {
+    //         name: formData.name,
+    //         weight: parseFloat(formData.weight),
+    //         balance: parseFloat(formData.balance),
+    //         userid: userData?.userid || 0,
+    //     };
 
-        // Update the categories state with the new category
-        setCategories((prevCategories) => [...prevCategories, newCategory]);
+    //     // Update the categories state with the new category
+    //     setCategories((prevCategories) => [...prevCategories, newCategory]);
 
-        // Close the popup
-        setIsPopupVisible(false);
+    //     // Close the popup
+    //     setIsPopupVisible(false);
 
-        // Reset the form data
-        setFormData({ name: "", weight: "", balance: "" });
-    }
+    //     // Reset the form data
+    //     setFormData({ name: "", weight: "", balance: "" });
+    // }
 
     function addExpense(_e: React.MouseEvent){
 
