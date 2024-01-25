@@ -17,5 +17,5 @@ export type UserData = {
 
 export type UserContextType = {
     userData: UserData | null;
-    setUserData: (user: UserData | null) => void;
+    setUserData: (user: UserData) => void;
   };

@@ -1,9 +1,9 @@
-import React, { useContext, useRef, useState } from "react"
+import React, { useRef, useState } from "react"
 import "../styles/Login.css"
 import axios from 'axios'
 import { UserData } from "../types/main";
 import Cookies from 'js-cookie';
-import { UserDataContext } from "../App";
+import { useUserDataContext } from "../App";
 
 
 export default function Login(){
@@ -14,11 +14,11 @@ export default function Login(){
     const last = useRef<HTMLInputElement | null>(null);
     const email = useRef<HTMLInputElement | null>(null);
 
-    const {setUserData} = useContext(UserDataContext);
+    const {setUserData} = useUserDataContext();
 
     const api:string | undefined = import.meta.env.VITE_BACKEND_URL;
 
-    function login(e: React.MouseEvent){
+    function login(_e: React.MouseEvent){
         if (username.current && password.current){
             let u = username.current.value;
             let p = password.current.value;
