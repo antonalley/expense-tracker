@@ -32,9 +32,16 @@ function App() {
     let uid = Number(Cookies.get("uid"));
     if (apiKey && uid){
       setIsAuth(true);
-      axios.get(import.meta.env.VITE_BACKEND_URL + "/users", {headers:{"x-api-key":apiKey}})
+      axios.get(import.meta.env.VITE_BACKEND_URL + "users", {headers:{"x-api-key":apiKey}})
       .then(result =>{
         console.log(result)
+        let users: Array<UserData> = result.data;
+        let uds = users.filter(u=>u.userid==uid);
+        if (uds.length){
+          setUserData(uds[0])
+        } else {
+          setIsAuth(false)
+        }
       })
     }
     else {
@@ -43,40 +50,31 @@ function App() {
     
   }, [])
 
-  if (isAuth){
   return (
     <UserDataContext.Provider value={{userData, setUserData}}>
       <div id="App">
-        <Navbar />
+        {isAuth && <Navbar />}
         <div style={{marginTop: '3em'}}>
           <BrowserRouter>
             <Routes>
+              {isAuth ?
+              <>
               <Route index element={<Navigate to="home/"/>} />
               <Route path='home/' element={<Home />} />
-              <Route path='login/' element={<Login />} />
+              <Route path='login/' element={<Navigate to="/dashboard/" />} />
               <Route path='dashboard/' element={<Dashboard />} />
               <Route path='history/' element={<History />} />
+              </>
+              : <>
+              <Route index element={<Navigate to="login/"/>} />
+              <Route path='login/' element={<Login />} />
+              </>}
             </Routes>
           </BrowserRouter>
         </div>
       </div>
     </UserDataContext.Provider>
   )
-  } else {
-    return (
-      <UserDataContext.Provider value={{userData, setUserData}}>
-      <div id="App">
-        <BrowserRouter>
-            <Routes>
-              <Route index element={<Navigate to="login/"/>} />
-              <Route path='home/' element={<Home />} />
-              <Route path='login/' element={<Login />} />
-            </Routes>
-          </BrowserRouter>
-      </div>
-      </UserDataContext.Provider>
-    )
-  }
     
 }
 

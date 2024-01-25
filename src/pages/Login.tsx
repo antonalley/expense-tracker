@@ -22,7 +22,7 @@ export default function Login(){
         if (username.current && password.current){
             let u = username.current.value;
             let p = password.current.value;
-            axios.post(api + "/authenticate", {username:u, password:p})
+            axios.post(api + "authenticate", {username:u, password:p}, {headers:{'Access-Control-Allow-Origin':'*'}})
             .then(response => {
                 if(response.status == 200 && response.data.status == "success"){
                     let userData: UserData = response.data["record"];
